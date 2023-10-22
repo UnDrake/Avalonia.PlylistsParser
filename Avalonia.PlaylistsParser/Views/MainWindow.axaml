@@ -1,0 +1,68 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Avalonia.PlaylistsParser.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        d:DesignHeight="750"
+        x:Class="Avalonia.PlaylistsParser.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/parser.png"
+        Title="Playlists Parser">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Spacing="10" Background="#C8A8E9">
+            <TextBox Margin="0 10 0 0" Width="400" Text="{Binding SearchText}" 
+                     Watermark="Search playlist..." />
+            <Button Margin="0 0 0 10" Content="Start" HorizontalAlignment="Center" 
+                    Command="{Binding StartParseCommand}" Foreground="#FFF"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" Spacing="10" Background="#C3C7F3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding AvatarImageBitmap}" Width="200" Height="200" 
+                       Grid.Column="0" Margin="20 20 30 20" />
+                <StackPanel Grid.Column="1" Margin="0 20 0 0">
+                    <TextBlock  Text="{Binding Playlist.PlaylistName}" 
+                               FontSize="20" FontWeight="Bold" Foreground="#FFF"/>
+                    <TextBlock Text="{Binding Playlist.Description}" 
+                               FontSize="15" Foreground="#FFF"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Background="#C8A8E9">
+            <TextBlock Margin="20 0 0 0" Text="Song Name" Width="400" Foreground="White" FontWeight="Bold" />
+            <TextBlock Text="Artist Name" Width="300" Foreground="White" FontWeight="Bold" />
+            <TextBlock Text="Album Name" Width="300" Foreground="White" FontWeight="Bold" />
+            <TextBlock Text="Duration" Width="100" Foreground="White" FontWeight="Bold" />
+        </StackPanel>
+        <ListBox Grid.Row="2" Margin="0 20 0 0" ItemsSource="{Binding Playlist.Songs}"
+                 Background="#C3C7F3">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10 0 0 0" Text="{Binding SongName}" Width="400" Foreground="#FFF" 
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding ArtistName}" Width="300" Foreground="#FFF" 
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding AlbumName}" Width="300" Foreground="#FFF" 
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding Duration}" Width="100" Foreground="#FFF" 
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>
